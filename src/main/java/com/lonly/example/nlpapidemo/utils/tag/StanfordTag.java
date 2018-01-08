@@ -1,12 +1,13 @@
 package com.lonly.example.nlpapidemo.utils.tag;
 
 import com.lonly.example.nlpapidemo.beans.TagResult;
-import com.lonly.example.nlpapidemo.common.stanford.CoreNLP;
+import com.lonly.example.nlpapidemo.core.stanford.CoreNLP;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @Lazy
 @Slf4j(topic = "Model Load")
 @Component
+@Scope("singleton")
 public class StanfordTag {
 
     @Autowired

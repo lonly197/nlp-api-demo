@@ -1,14 +1,12 @@
-package com.lonly.example.nlpapidemo.common.stanford;
+package com.lonly.example.nlpapidemo.core.stanford;
 
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Lazy
-@PropertySource(value = {"classpath:boson.properties"}, encoding = "utf-8")
 @Slf4j(topic = "Model Load")
 @Component
 @Scope("singleton")

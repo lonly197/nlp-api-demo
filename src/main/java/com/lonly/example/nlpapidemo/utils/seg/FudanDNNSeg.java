@@ -19,15 +19,11 @@ import java.util.List;
 public class FudanDNNSeg {
     private WordSegmentor fudanDNNSeg;
 
-    public FudanDNNSeg(@Value("${Root}") String rootPath, @Value("${PreprocessConfPath}") String preprocessFile, @Value("${WordSegmentorConfPath}") String wordSegmentorFile) {
+    public FudanDNNSeg(@Value("${Root}") String rootPath, @Value("${PreprocessConfPath}") String preprocessFile, @Value("${WordSegmentorConfPath}") String wordSegmentorFile, String posTaggerConfPath) {
         fudanDNNSeg = new WordSegmentor(rootPath, preprocessFile, wordSegmentorFile);
     }
 
     public String[] seg(String text) {
         return fudanDNNSeg.segmentation(text).getConstriants().split(" ");
-    }
-
-    public List<Item> segToList(String text) {
-        return fudanDNNSeg.segmentation(text).getItemList();
     }
 }

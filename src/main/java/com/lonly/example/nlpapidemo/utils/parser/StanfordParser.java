@@ -1,7 +1,6 @@
 package com.lonly.example.nlpapidemo.utils.parser;
 
 import com.lonly.example.nlpapidemo.beans.ParserResult;
-import com.lonly.example.nlpapidemo.common.stanford.CoreNLP;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.trees.GrammaticalStructureFactory;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
@@ -11,7 +10,9 @@ import edu.stanford.nlp.util.CoreMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import com.lonly.example.nlpapidemo.core.stanford.CoreNLP;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.stream.IntStream;
 @Lazy
 @Slf4j(topic = "Model Load")
 @Component
+@Scope("singleton")
 public class StanfordParser {
 
     @Autowired

@@ -15,13 +15,16 @@ public class SummaryController {
     private SummaryUtils summaryUtils;
 
     @PostMapping("boson")
-    public String bosonSummary(@RequestParam("text") String text, @RequestParam(value = "percent", defaultValue = "0.3", required = false) String percent) {
+    public String bosonSummary(@RequestParam("text") String text,
+                               @RequestParam(value = "percent", defaultValue = "0.3", required = false) String percent) {
         return summaryUtils.bosonSummary.extract(text, percent);
     }
 
     @PostMapping("hanlp")
-    public String hanlpSummary(@RequestParam("text") String text, @RequestParam(value = "percent", defaultValue = "0.3", required = false) String percent) {
-        return summaryUtils.hanlpSummary.extract(text, percent);
+    public String hanlpSummary(@RequestParam("text") String text,
+                               @RequestParam(value = "percent", defaultValue = "0.3", required = false) String percent,
+                               @RequestParam(value = "type", defaultValue = "1", required = false) String type) {
+        return summaryUtils.hanlpSummary.extract(text, percent, java.util.Optional.ofNullable(type));
     }
 
     @PostMapping("stanford")

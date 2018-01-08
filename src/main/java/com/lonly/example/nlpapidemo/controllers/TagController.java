@@ -27,7 +27,7 @@ public class TagController {
 
     @PostMapping("fudan")
     public TagResult fudanTag(@RequestParam("text") String text) {
-        return tagUtils.fundanDNNTag.tag(text);
+        return tagUtils.fudanDNNTag.tag(text);
     }
 
     @PostMapping("stanford")

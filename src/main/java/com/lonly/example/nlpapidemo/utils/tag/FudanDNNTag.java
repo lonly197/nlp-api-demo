@@ -1,8 +1,8 @@
 package com.lonly.example.nlpapidemo.utils.tag;
 
 import cn.edu.fudan.flow.PosTagger;
-import cn.edu.fudan.lang.Item;
 import com.lonly.example.nlpapidemo.beans.TagResult;
+import com.lonly.example.nlpapidemo.utils.seg.FudanDNNSeg;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -10,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,12 +22,12 @@ import java.util.stream.Collectors;
 @Component
 @Scope("singleton")
 @PropertySource(value = {"classpath:fudandnn.properties"}, encoding = "utf-8")
-public class FundanDNNTag {
+public class FudanDNNTag {
     private PosTagger posTagger;
 
     private Map<String, String> tagDict = new HashMap<>();
 
-    public FundanDNNTag(@Value("${PosTaggerDictionary}") String tagDictPath, @Value("${Root}") String rootPath, @Value("${PreprocessConfPath}") String preprocessFile, @Value("${PosTaggerConfPath}") String posTaggerFile) {
+    public FudanDNNTag(@Value("${PosTaggerDictionary}") String tagDictPath, @Value("${Root}") String rootPath, @Value("${PreprocessConfPath}") String preprocessFile, @Value("${PosTaggerConfPath}") String posTaggerFile) {
         long start = System.currentTimeMillis();
         posTagger = new PosTagger(rootPath, rootPath + preprocessFile, rootPath + posTaggerFile);
         try {
@@ -39,18 +40,18 @@ public class FundanDNNTag {
         } catch (IOException e) {
             log.error("FundanDNNTag Init Error:", e);
         }
-        log.info("FundanDNNTag Loaded [{} ms]", System.currentTimeMillis() - start);
+        log.info("FundanDNNTag 2 Loaded [{} ms]", System.currentTimeMillis() - start);
     }
 
-    public List<Item> tagToList(String text) {
-        return posTagger.posTagging(text).getItemList();
+    public List<String> tagToList(String text) {
+        return Arrays.asList(posTagger.posTagging(text).getConstriants().split(" "));
     }
 
     public TagResult tag(String text) {
         TagResult result = new TagResult();
-        String[] tags = posTagger.posTagging(text).getConstriants().split(" ");
-        result.setWord(Arrays.stream(tags).map(String::trim).filter(item -> !item.isEmpty() && item.contains("/")).map(item -> item.split("/", 2)[0]).collect(Collectors.toCollection(ArrayList::new)));
-        result.setTag(Arrays.stream(tags).map(String::trim).filter(item -> !item.isEmpty() && item.contains("/")).map(item -> getTagName(item.split("/", 2)[1])).collect(Collectors.toCollection(ArrayList::new)));
+        List<String> tags = tagToList(text);
+        result.setWord(tags.stream().map(String::trim).filter(item -> !item.isEmpty() && item.contains("/")).map(item -> item.split("/", 2)[0]).collect(Collectors.toCollection(ArrayList::new)));
+        result.setTag(tags.stream().map(String::trim).filter(item -> !item.isEmpty() && item.contains("/")).map(item -> getTagName(item.split("/", 2)[1])).collect(Collectors.toCollection(ArrayList::new)));
         return result;
     }
 

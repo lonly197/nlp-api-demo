@@ -19,7 +19,7 @@ public class TagUtils {
 
     @Autowired
     @Lazy
-    public FundanDNNTag fundanDNNTag;
+    public FudanDNNTag fudanDNNTag;
 
     @Autowired
     @Lazy

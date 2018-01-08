@@ -1,7 +1,5 @@
 package com.lonly.example.nlpapidemo.utils.summary;
 
-import com.hankcs.hanlp.HanLP;
-import com.lonly.example.nlpapidemo.utils.summary.hanlp.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -21,17 +20,22 @@ import java.util.stream.IntStream;
 @Component
 public class HanlpSummary {
 
-    public String extract(String text, String percent) {
-        List<String> sentences = splitSentence(text.replaceAll("\\n",""), false);
+    public String extract(String text, String percent, Optional<String> type) {
+        List<String> sentences = splitSentence(text.replaceAll("\\n", ""), false);
         String result = IntStream.range(0, sentences.size())
                 .filter(i -> sentences.get(i).length() >= 1)
-                .mapToObj(i -> String.join("", Utils.extractSummary(sentences.get(i)).get(0), lastChar(sentences.get(i))))
+                .mapToObj(i -> String.join("", HanlpUtils.extractSummary(sentences.get(i),type).get(0), getLastChar(sentences.get(i))))
                 .collect(Collectors.joining());
         return subSentence(result, result.length(), Double.parseDouble(percent));
     }
 
 
-    private String lastChar(String cmt) {
+    /**
+     * 获取句子的结尾符号
+     * @param cmt 句子
+     * @return
+     */
+    private String getLastChar(String cmt) {
         int length = cmt.length();
         return length > 1 ? cmt.substring(length - 1, length) : cmt;
     }
@@ -60,16 +64,27 @@ public class HanlpSummary {
         return Arrays.asList(sentences);
     }
 
+    /**
+     * 截取句子
+     * @param cmt 句子
+     * @param len 原句子长度
+     * @param percent 截取比例（大于1时，为截取字数，小于或等于1时，为截取比例）
+     * @return
+     */
     private String subSentence(String cmt, int len, double percent) {
-        int limit = (int) (len * percent);
-        List<String> result = new ArrayList<>();
-        for (String sent : splitSentence(cmt, true)) {
-            result.add(sent);
-            if (result.stream().mapToInt(String::length).sum() >= limit) {
-                break;
+        if (percent > 1) {
+            return cmt.substring(0, (int) percent);
+        } else {
+            int limit = (int) (len * percent);
+            List<String> result = new ArrayList<>();
+            for (String sent : splitSentence(cmt, true)) {
+                result.add(sent);
+                if (result.stream().mapToInt(String::length).sum() >= limit) {
+                    break;
+                }
             }
+            return result.stream().reduce("", String::concat);
         }
-        return result.stream().reduce("", String::concat);
     }
 
 }
