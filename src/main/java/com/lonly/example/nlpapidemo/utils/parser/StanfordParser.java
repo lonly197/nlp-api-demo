@@ -1,7 +1,7 @@
 package com.lonly.example.nlpapidemo.utils.parser;
 
 import com.lonly.example.nlpapidemo.beans.ParserResult;
-import com.lonly.example.nlpapidemo.utils.stanford.CoreNLP;
+import com.lonly.example.nlpapidemo.common.stanford.CoreNLP;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.trees.GrammaticalStructureFactory;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;

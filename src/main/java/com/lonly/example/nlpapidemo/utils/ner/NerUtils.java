@@ -19,6 +19,6 @@ public class NerUtils {
 
     @Autowired
     @Lazy
-    public FundanDNNNer fundanDNNNer;
+    public FudanDNNNer fudanDNNNer;
 
 }

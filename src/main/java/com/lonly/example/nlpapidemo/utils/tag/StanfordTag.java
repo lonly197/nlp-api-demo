@@ -1,7 +1,7 @@
 package com.lonly.example.nlpapidemo.utils.tag;
 
 import com.lonly.example.nlpapidemo.beans.TagResult;
-import com.lonly.example.nlpapidemo.utils.stanford.CoreNLP;
+import com.lonly.example.nlpapidemo.common.stanford.CoreNLP;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
 import lombok.extern.slf4j.Slf4j;

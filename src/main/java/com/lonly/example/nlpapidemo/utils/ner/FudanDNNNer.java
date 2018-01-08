@@ -22,12 +22,12 @@ import java.util.stream.IntStream;
 @PropertySource(value = {"classpath:fudandnn.properties"}, encoding = "utf-8")
 @Slf4j(topic = "Model Load")
 @Component
-public class FundanDNNNer {
+public class FudanDNNNer {
     private NamedIdentityRecognizer nerRecognizer;
 
     private Map<String, String> nerDict = new HashMap<>();
 
-    public FundanDNNNer(@Value("${Root}") String rootPath, @Value("${PreprocessConfPath}") String preprocessFile, @Value("${NerRecognizerConfPath}") String nerRecogizerFile, @Value("${NerRecognizerDictionary}") String nerDictPath) {
+    public FudanDNNNer(@Value("${Root}") String rootPath, @Value("${PreprocessConfPath}") String preprocessFile, @Value("${NerRecognizerConfPath}") String nerRecogizerFile, @Value("${NerRecognizerDictionary}") String nerDictPath) {
         long start = System.currentTimeMillis();
         nerRecognizer = new NamedIdentityRecognizer(rootPath, preprocessFile, nerRecogizerFile);
         try {

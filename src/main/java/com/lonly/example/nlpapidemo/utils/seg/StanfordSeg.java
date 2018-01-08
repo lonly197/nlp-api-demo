@@ -1,6 +1,6 @@
 package com.lonly.example.nlpapidemo.utils.seg;
 
-import com.lonly.example.nlpapidemo.utils.stanford.CoreNLP;
+import com.lonly.example.nlpapidemo.common.stanford.CoreNLP;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

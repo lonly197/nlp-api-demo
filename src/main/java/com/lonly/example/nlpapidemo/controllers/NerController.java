@@ -3,7 +3,6 @@ package com.lonly.example.nlpapidemo.controllers;
 import com.lonly.example.nlpapidemo.beans.NerResult;
 import com.lonly.example.nlpapidemo.utils.ner.NerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +27,7 @@ public class NerController {
 
     @PostMapping("fudan")
     public NerResult fudanNer(@RequestParam("text") String text) {
-        return nerUtils.fundanDNNNer.ner(text);
+        return nerUtils.fudanDNNNer.ner(text);
     }
 
 }

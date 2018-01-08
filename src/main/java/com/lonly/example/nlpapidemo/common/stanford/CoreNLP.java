@@ -1,4 +1,4 @@
-package com.lonly.example.nlpapidemo.utils.stanford;
+package com.lonly.example.nlpapidemo.common.stanford;
 
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import lombok.extern.slf4j.Slf4j;

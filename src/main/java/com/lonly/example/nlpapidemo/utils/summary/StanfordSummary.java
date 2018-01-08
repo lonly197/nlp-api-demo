@@ -1,6 +1,6 @@
 package com.lonly.example.nlpapidemo.utils.summary;
 
-import com.lonly.example.nlpapidemo.utils.stanford.CoreNLP;
+import com.lonly.example.nlpapidemo.common.stanford.CoreNLP;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.naturalli.NaturalLogicAnnotations;
 import lombok.extern.slf4j.Slf4j;
